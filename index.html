@@ -266,7 +266,7 @@
             animation: cardAppear 0.6s ease-out;
             display: flex;
             flex-direction: column;
-            height: 100%; /* Asegura altura uniforme */
+            height: 100%;
         }
 
         @keyframes cardAppear {
@@ -470,6 +470,7 @@
             transform: translate(-50%, -50%);
             border-radius: 50%;
             box-shadow: 0 0 60px rgba(65, 150, 255, 0.6);
+            transition: transform 2s ease-out;
         }
 
         .spaceship {
@@ -489,10 +490,47 @@
                 transform: translate(-1000px, -500px) scale(0.3);
                 opacity: 0;
             }
+            50% {
+                transform: translate(-100px, -100px) scale(0.8);
+                opacity: 0.8;
+            }
             100% {
                 transform: translate(-50%, -50%) scale(1);
                 opacity: 1;
             }
+        }
+
+        .map-preview {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            transform: translate(-50%, -50%) scale(0.1);
+            opacity: 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+            overflow: hidden;
+            transition: all 1.5s ease-in-out;
+            background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=Hermosillo,Sonora&zoom=12&size=500x500&maptype=roadmap&key=AIzaSyA0C5erf1KRqYrcE7xY7K3Zf1KvRZ7p7gY');
+            background-size: cover;
+        }
+
+        .map-marker {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('https://cdn-icons-png.flaticon.com/512/2776/2776067.png') no-repeat center center;
+            background-size: contain;
+            transform: translate(-50%, -100%);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -100%) scale(1); }
+            50% { transform: translate(-50%, -100%) scale(1.2); }
+            100% { transform: translate(-50%, -100%) scale(1); }
         }
 
         .loading-bar {
@@ -621,7 +659,34 @@
 
         .close-preview:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .close-icon {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .close-icon::before,
+        .close-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        .close-icon::before {
+            transform: rotate(45deg);
+        }
+
+        .close-icon::after {
+            transform: rotate(-45deg);
         }
 
         /* Virtual Tour */
@@ -658,6 +723,8 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+            transition: transform 0.8s ease;
+            cursor: grab;
         }
 
         .tour-navigation {
@@ -683,6 +750,9 @@
             transition: var(--transition);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .tour-btn:hover {
@@ -706,11 +776,14 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .exit-tour:hover {
             background-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+            transform: rotate(90deg);
         }
 
         .tour-title {
@@ -724,6 +797,19 @@
             background: rgba(0, 0, 0, 0.4);
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
+        }
+
+        .tour-info {
+            position: absolute;
+            bottom: 40px;
+            right: 30px;
+            color: white;
+            font-size: 1.2rem;
+            z-index: 2004;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-align: center;
         }
 
         /* Footer */
@@ -817,6 +903,11 @@
                 width: 50px;
                 height: 50px;
             }
+
+            .map-preview {
+                width: 300px;
+                height: 300px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -834,6 +925,10 @@
 
             .btn {
                 width: 100%;
+            }
+            
+            .space-text {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -890,7 +985,9 @@
 
         <div class="properties-grid">
             <!-- Property 1 -->
-            <div class="property-card" data-location="19.432608,-99.133209" 
+            <div class="property-card" 
+                 data-location="29.0892, -110.9617"
+                 data-map-position="top:30%; left:40%"
                  data-house-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
                 <div class="property-image-container">
                     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Moderna en Bosques" class="property-image">
@@ -899,7 +996,7 @@
                 <div class="property-details">
                     <h3 class="property-title">Residencia Bosques</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Bosques de las Lomas, CDMX
+                        <i class="fas fa-map-marker-alt"></i> Colonia Pitic, Hermosillo
                     </div>
                     <div class="property-price">$8,750,000 MXN</div>
                     <div class="property-features">
@@ -930,7 +1027,9 @@
             </div>
 
             <!-- Property 2 -->
-            <div class="property-card" data-location="19.428470,-99.127660" 
+            <div class="property-card" 
+                 data-location="29.1025, -110.9458"
+                 data-map-position="top:35%; left:55%"
                  data-house-img="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80">
                 <div class="property-image-container">
                     <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80" alt="Casa Clásica en Lomas" class="property-image">
@@ -939,7 +1038,7 @@
                 <div class="property-details">
                     <h3 class="property-title">Villa Las Lomas</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Lomas de Chapultepec, CDMX
+                        <i class="fas fa-map-marker-alt"></i> Colonia La Campiña, Hermosillo
                     </div>
                     <div class="property-price">$12,900,000 MXN</div>
                     <div class="property-features">
@@ -969,17 +1068,19 @@
                 </div>
             </div>
 
-            <!-- Property 3 -->
-            <div class="property-card" data-location="19.410000,-99.180000" 
-                 data-house-img="https://images.unsplash.com/photo-1615529162924-f8605388463a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80">
+            <!-- Property 3 (Imagen corregida) -->
+            <div class="property-card" 
+                 data-location="29.0756, -110.9772"
+                 data-map-position="top:45%; left:35%"
+                 data-house-img="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
                 <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1615529162924-f8605388463a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80" alt="Penthouse con Vista" class="property-image">
+                    <img src="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Penthouse con Vista" class="property-image">
                     <div class="property-badge">Vendida</div>
                 </div>
                 <div class="property-details">
                     <h3 class="property-title">Penthouse Skyline</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Polanco, CDMX
+                        <i class="fas fa-map-marker-alt"></i> Centro Histórico, Hermosillo
                     </div>
                     <div class="property-price">$15,300,000 MXN</div>
                     <div class="property-features">
@@ -1010,7 +1111,9 @@
             </div>
 
             <!-- Property 4 -->
-            <div class="property-card" data-location="19.440000,-99.200000" 
+            <div class="property-card" 
+                 data-location="29.1153, -110.9321"
+                 data-map-position="top:25%; left:60%"
                  data-house-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80">
                 <div class="property-image-container">
                     <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" alt="Casa Contemporánea" class="property-image">
@@ -1019,7 +1122,7 @@
                 <div class="property-details">
                     <h3 class="property-title">Casa Contemporánea</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Santa Fe, CDMX
+                        <i class="fas fa-map-marker-alt"></i> Colonia San Benito, Hermosillo
                     </div>
                     <div class="property-price">$9,950,000 MXN</div>
                     <div class="property-features">
@@ -1050,7 +1153,9 @@
             </div>
 
             <!-- Property 5 -->
-            <div class="property-card" data-location="19.380000,-99.170000" 
+            <div class="property-card" 
+                 data-location="29.0678, -110.9954"
+                 data-map-position="top:50%; left:30%"
                  data-house-img="https://images.unsplash.com/photo-1628133287836-40bd5453bed1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
                 <div class="property-image-container">
                     <img src="https://images.unsplash.com/photo-1628133287836-40bd5453bed1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Rústica" class="property-image">
@@ -1059,7 +1164,7 @@
                 <div class="property-details">
                     <h3 class="property-title">Hacienda del Valle</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Valle de Bravo, Edo. México
+                        <i class="fas fa-map-marker-alt"></i> Valle del Yaqui, Hermosillo
                     </div>
                     <div class="property-price">$6,500,000 MXN</div>
                     <div class="property-features">
@@ -1090,7 +1195,9 @@
             </div>
 
             <!-- Property 6 -->
-            <div class="property-card" data-location="19.420000,-99.150000" 
+            <div class="property-card" 
+                 data-location="29.0951, -110.9187"
+                 data-map-position="top:40%; left:65%"
                  data-house-img="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
                 <div class="property-image-container">
                     <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Minimalista" class="property-image">
@@ -1099,7 +1206,7 @@
                 <div class="property-details">
                     <h3 class="property-title">Residencia Minimal</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Interlomas, Edo. México
+                        <i class="fas fa-map-marker-alt"></i> Colonia La Mision, Hermosillo
                     </div>
                     <div class="property-price">$7,200,000 MXN</div>
                     <div class="property-features">
@@ -1137,6 +1244,7 @@
         <div class="space-container">
             <div class="earth"></div>
             <div class="spaceship"></div>
+            <div class="map-preview"></div>
         </div>
         <div class="loading-bar">
             <div class="loading-progress"></div>
@@ -1145,7 +1253,9 @@
 
     <!-- House Preview -->
     <div class="house-preview">
-        <div class="close-preview">&times;</div>
+        <div class="close-preview">
+            <div class="close-icon"></div>
+        </div>
         <div class="house-preview-content">
             <img src="" alt="Preview de la propiedad" class="house-preview-image">
             <div class="door-area"></div>
@@ -1154,8 +1264,11 @@
 
     <!-- Virtual Tour -->
     <div class="virtual-tour">
-        <div class="exit-tour">&times;</div>
+        <div class="exit-tour">
+            <div class="close-icon"></div>
+        </div>
         <div class="tour-title">Recorrido Virtual</div>
+        <div class="tour-info">Desplaza o usa flechas para navegar</div>
         <div class="tour-container">
             <img src="" alt="Tour virtual" class="tour-image">
         </div>
@@ -1185,6 +1298,8 @@
         // DOM Elements
         const propertyCards = document.querySelectorAll('.property-card');
         const spaceAnimation = document.querySelector('.space-animation');
+        const earth = document.querySelector('.earth');
+        const mapPreview = document.querySelector('.map-preview');
         const housePreview = document.querySelector('.house-preview');
         const housePreviewImage = document.querySelector('.house-preview-image');
         const closePreview = document.querySelector('.close-preview');
@@ -1206,26 +1321,47 @@
         ];
 
         let currentTourImageIndex = 0;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
 
         // Property click event (show space animation)
         mapButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const propertyCard = this.closest('.property-card');
                 const houseImage = propertyCard.getAttribute('data-house-img');
+                const mapPosition = propertyCard.getAttribute('data-map-position');
                 
                 // Show space animation
                 spaceAnimation.classList.add('active');
                 
-                // After animation completes, show house preview
+                // After animation completes, show map preview
                 setTimeout(() => {
-                    spaceAnimation.classList.remove('active');
-                    housePreviewImage.src = houseImage;
-                    housePreview.classList.add('active');
+                    // Create marker
+                    const marker = document.createElement('div');
+                    marker.classList.add('map-marker');
+                    marker.style = mapPosition;
+                    mapPreview.appendChild(marker);
                     
-                    // Show door area after image loads
+                    // Show map preview
+                    mapPreview.style.opacity = '1';
+                    mapPreview.style.transform = 'translate(-50%, -50%) scale(1)';
+                    
+                    // After map preview, show house preview
                     setTimeout(() => {
-                        doorArea.style.opacity = '1';
-                    }, 500);
+                        spaceAnimation.classList.remove('active');
+                        housePreviewImage.src = houseImage;
+                        housePreview.classList.add('active');
+                        
+                        // Reset map preview
+                        mapPreview.style.opacity = '0';
+                        mapPreview.style.transform = 'translate(-50%, -50%) scale(0.1)';
+                        mapPreview.innerHTML = '';
+                        
+                        // Show door area after image loads
+                        setTimeout(() => {
+                            doorArea.style.opacity = '1';
+                        }, 500);
+                    }, 3000);
                 }, 3500);
             });
         });
@@ -1259,6 +1395,58 @@
             currentTourImageIndex = (currentTourImageIndex + 1) % tourImages.length;
             tourImage.src = tourImages[currentTourImageIndex];
             tourImage.animate([{opacity: 0}, {opacity: 1}], {duration: 500});
+        });
+
+        // Tour image interaction
+        tourImage.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startX = e.pageX - this.offsetLeft;
+            startY = e.pageY - this.offsetTop;
+            scrollLeft = this.scrollLeft;
+            scrollTop = this.scrollTop;
+        });
+
+        tourImage.addEventListener('mouseleave', function() {
+            isDragging = false;
+        });
+
+        tourImage.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        tourImage.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - this.offsetLeft;
+            const y = e.pageY - this.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            this.scrollLeft = scrollLeft - walkX;
+            this.scrollTop = scrollTop - walkY;
+        });
+
+        // Touch events for mobile
+        tourImage.addEventListener('touchstart', function(e) {
+            isDragging = true;
+            startX = e.touches[0].pageX - this.offsetLeft;
+            startY = e.touches[0].pageY - this.offsetTop;
+            scrollLeft = this.scrollLeft;
+            scrollTop = this.scrollTop;
+        });
+
+        tourImage.addEventListener('touchend', function() {
+            isDragging = false;
+        });
+
+        tourImage.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.touches[0].pageX - this.offsetLeft;
+            const y = e.touches[0].pageY - this.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            this.scrollLeft = scrollLeft - walkX;
+            this.scrollTop = scrollTop - walkY;
         });
 
         // Card hover effect
