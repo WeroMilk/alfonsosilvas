@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Casas | Experto en Bienes Raíces</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Propiedades de Lujo | Agente Inmobiliario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
         :root {
             --primary: #8B6B4F;
@@ -264,9 +265,6 @@
             position: relative;
             transform: translateY(0);
             animation: cardAppear 0.6s ease-out;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
 
         @keyframes cardAppear {
@@ -327,9 +325,6 @@
 
         .property-details {
             padding: 1.8rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
         }
 
         .property-title {
@@ -396,7 +391,6 @@
             margin-bottom: 1.8rem;
             font-size: 1rem;
             line-height: 1.6;
-            flex: 1;
         }
 
         .property-actions {
@@ -419,8 +413,8 @@
             box-shadow: 0 15px 30px rgba(138, 107, 79, 0.3);
         }
 
-        /* Space Animation */
-        .space-animation {
+        /* Animación espacial */
+        #spaceAnimation {
             position: fixed;
             top: 0;
             left: 0;
@@ -428,132 +422,7 @@
             height: 100%;
             background: #000;
             z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease;
-        }
-
-        .space-animation.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .space-text {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
-        .space-container {
-            position: relative;
-            width: 600px;
-            height: 600px;
-        }
-
-        .earth {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Earth_Western_Hemisphere_transparent_background.png/480px-Earth_Western_Hemisphere_transparent_background.png') no-repeat center center;
-            background-size: cover;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            box-shadow: 0 0 60px rgba(65, 150, 255, 0.6);
-            transition: transform 2s ease-out;
-        }
-
-        .spaceship {
-            position: absolute;
-            width: 80px;
-            height: 80px;
-            background: url('https://cdn-icons-png.flaticon.com/512/565/565422.png') no-repeat center center;
-            background-size: contain;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: flyToEarth 2.5s forwards cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        @keyframes flyToEarth {
-            0% {
-                transform: translate(-1000px, -500px) scale(0.3);
-                opacity: 0;
-            }
-            50% {
-                transform: translate(-100px, -100px) scale(0.8);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .map-preview {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 500px;
-            height: 500px;
-            transform: translate(-50%, -50%) scale(0.1);
-            opacity: 0;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
-            overflow: hidden;
-            transition: all 1.5s ease-in-out;
-            background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=Hermosillo,Sonora&zoom=12&size=500x500&maptype=roadmap&key=AIzaSyA0C5erf1KRqYrcE7xY7K3Zf1KvRZ7p7gY');
-            background-size: cover;
-        }
-
-        .map-marker {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: url('https://cdn-icons-png.flaticon.com/512/2776/2776067.png') no-repeat center center;
-            background-size: contain;
-            transform: translate(-50%, -100%);
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: translate(-50%, -100%) scale(1); }
-            50% { transform: translate(-50%, -100%) scale(1.2); }
-            100% { transform: translate(-50%, -100%) scale(1); }
-        }
-
-        .loading-bar {
-            width: 300px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            margin-top: 3rem;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loading-progress {
-            position: absolute;
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(to right, #4f8ab8, #2a5b84);
-            animation: loading 2s forwards;
-        }
-
-        @keyframes loading {
-            0% { width: 0%; }
-            100% { width: 100%; }
+            display: none;
         }
 
         /* House Preview */
@@ -658,35 +527,8 @@
         }
 
         .close-preview:hover {
-            background: rgba(255, 255, 255, 0.2);
             transform: rotate(90deg) scale(1.1);
-        }
-
-        .close-icon {
-            position: relative;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .close-icon::before,
-        .close-icon::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background-color: white;
-            border-radius: 2px;
-        }
-
-        .close-icon::before {
-            transform: rotate(45deg);
-        }
-
-        .close-icon::after {
-            transform: rotate(-45deg);
+            background: rgba(255, 255, 255, 0.2);
         }
 
         /* Virtual Tour */
@@ -723,8 +565,6 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            transition: transform 0.8s ease;
-            cursor: grab;
         }
 
         .tour-navigation {
@@ -750,9 +590,6 @@
             transition: var(--transition);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .tour-btn:hover {
@@ -776,9 +613,6 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .exit-tour:hover {
@@ -797,61 +631,6 @@
             background: rgba(0, 0, 0, 0.4);
             padding: 0.8rem 1.5rem;
             border-radius: 50px;
-        }
-
-        .tour-info {
-            position: absolute;
-            bottom: 40px;
-            right: 30px;
-            color: white;
-            font-size: 1.2rem;
-            z-index: 2004;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--secondary);
-            padding: 3rem 0;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-
-        .footer-text {
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            opacity: 0.7;
-            line-height: 1.8;
-        }
-
-        .contact-buttons-footer {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .copyright {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(212, 193, 167, 0.2);
-            opacity: 0.6;
         }
 
         /* Responsive */
@@ -888,26 +667,6 @@
             .agent-stats {
                 flex-wrap: wrap;
             }
-
-            .space-container {
-                width: 100%;
-                height: 400px;
-            }
-
-            .earth {
-                width: 200px;
-                height: 200px;
-            }
-
-            .spaceship {
-                width: 50px;
-                height: 50px;
-            }
-
-            .map-preview {
-                width: 300px;
-                height: 300px;
-            }
         }
 
         @media (max-width: 480px) {
@@ -926,23 +685,75 @@
             .btn {
                 width: 100%;
             }
-            
-            .space-text {
-                font-size: 1.8rem;
-            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--secondary);
+            padding: 3rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-text {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        .contact-button-footer {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .contact-button-footer:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 193, 167, 0.2);
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
-    <!-- Header with agent info -->
     <header>
         <div class="header-content">
             <div class="agent-photo-container">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Agente Inmobiliario" class="agent-photo">
+                <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                     alt="Agente Inmobiliario" class="agent-photo">
             </div>
             <div class="agent-info">
-                <h1>Carlos Mendoza</h1>
-                <div class="agent-title">Especialista en Bienes Raíces.</div>
+                <h1>Roberto Mendoza</h1>
+                <div class="agent-title">Especialista en Bienes Raices</div>
                 
                 <div class="agent-stats">
                     <div class="stat-item">
@@ -950,7 +761,7 @@
                         <span class="stat-label">Años de Experiencia</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-value">250+</span>
+                        <span class="stat-value">200+</span>
                         <span class="stat-label">Propiedades Vendidas</span>
                     </div>
                     <div class="stat-item">
@@ -959,16 +770,18 @@
                     </div>
                 </div>
                 
-                <p>Ofrezco asesoría personalizada para encontrar la propiedad de tus sueños. Con amplia experiencia en el mercado de lujo, garantizo transparencia y excelencia en cada transacción.</p>
+                <p>Con más de 15 años de experiencia en el mercado de bienes raíces, 
+                   me especializo en encontrar la propiedad perfecta para mis clientes, 
+                   combinando un servicio personalizado con un profundo conocimiento del mercado.</p>
                 
                 <div class="contact-buttons">
-                    <a href="mailto:carlos@luxuryproperties.com" class="btn btn-email">
-                        <i class="fas fa-envelope"></i> Email
+                    <a href="mailto:contacto@ejemplo.com" class="btn btn-email">
+                        <i class="fas fa-envelope"></i> Enviar Email
                     </a>
-                    <a href="tel:+525512345678" class="btn btn-call">
-                        <i class="fas fa-phone"></i> Llamar
+                    <a href="tel:+521234567890" class="btn btn-call">
+                        <i class="fas fa-phone"></i> Llamar Ahora
                     </a>
-                    <a href="https://wa.me/525512345678" target="_blank" class="btn btn-whatsapp">
+                    <a href="https://wa.me/521234567890" class="btn btn-whatsapp">
                         <i class="fab fa-whatsapp"></i> WhatsApp
                     </a>
                 </div>
@@ -976,258 +789,316 @@
         </div>
     </header>
 
-    <!-- Properties Section -->
-    <main class="properties-container">
+    <section class="properties-container">
         <div class="section-header">
-            <h2 class="section-title"> Mis Propiedades</h2>
-            <p class="section-subtitle">Descubre nuestra selección premium de residencias que combinan diseño, comodidad y ubicaciones privilegiadas</p>
+            <h2 class="section-title">Propiedades Destacadas</h2>
+            <p class="section-subtitle">Descubre nuestra selección exclusiva de propiedades residenciales en Hermosillo</p>
         </div>
-
+        
         <div class="properties-grid">
-            <!-- Property 1 -->
-            <div class="property-card" 
-                 data-location="29.0892, -110.9617"
-                 data-map-position="top:30%; left:40%"
-                 data-house-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
+            <!-- Propiedad 1 - Hermosillo Centro -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                 data-coords="29.072967,-110.955919">
                 <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Moderna en Bosques" class="property-image">
-                    <div class="property-badge">Nuevo</div>
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                         alt="cia en Centro Histórico" class="property-image">
+                    <div class="property-badge">NUEVO</div>
                 </div>
                 <div class="property-details">
-                    <h3 class="property-title">Residencia Bosques</h3>
+                    <h3 class="property-title">Centro Histórico</h3>
                     <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Colonia Pitic, Hermosillo
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Centro, Hermosillo, Sonora</span>
                     </div>
-                    <div class="property-price">$8,750,000 MXN</div>
+                    <div class="property-price">$5,750,000 MXN</div>
+                    
                     <div class="property-features">
                         <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
-                            <span class="feature-value">420 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bed"></i> Recámaras
-                            <span class="feature-value">5</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bath"></i> Baños
-                            <span class="feature-value">5.5</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-car"></i> Estacionamientos
-                            <span class="feature-value">4</span>
-                        </div>
-                    </div>
-                    <p class="property-description">Espectacular residencia contemporánea con acabados de lujo, amplios espacios, terraza con alberca y vista panorámica. Diseño arquitectónico vanguardista.</p>
-                    <div class="property-actions">
-                        <button class="btn btn-map">
-                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 2 -->
-            <div class="property-card" 
-                 data-location="29.1025, -110.9458"
-                 data-map-position="top:35%; left:55%"
-                 data-house-img="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80">
-                <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80" alt="Casa Clásica en Lomas" class="property-image">
-                    <div class="property-badge">Exclusivo</div>
-                </div>
-                <div class="property-details">
-                    <h3 class="property-title">Villa Las Lomas</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Colonia La Campiña, Hermosillo
-                    </div>
-                    <div class="property-price">$12,900,000 MXN</div>
-                    <div class="property-features">
-                        <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
-                            <span class="feature-value">580 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bed"></i> Recámaras
-                            <span class="feature-value">6</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bath"></i> Baños
-                            <span class="feature-value">7</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-tree"></i> Terreno
-                            <span class="feature-value">1,200 m²</span>
-                        </div>
-                    </div>
-                    <p class="property-description">Majestuosa villa de estilo clásico con jardines exuberantes, biblioteca, cine en casa, bodega de vinos y seguridad 24/7. Una verdadera obra maestra arquitectónica.</p>
-                    <div class="property-actions">
-                        <button class="btn btn-map">
-                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 3 (Imagen corregida) -->
-            <div class="property-card" 
-                 data-location="29.0756, -110.9772"
-                 data-map-position="top:45%; left:35%"
-                 data-house-img="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
-                <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Penthouse con Vista" class="property-image">
-                    <div class="property-badge">Vendida</div>
-                </div>
-                <div class="property-details">
-                    <h3 class="property-title">Penthouse Skyline</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Centro Histórico, Hermosillo
-                    </div>
-                    <div class="property-price">$15,300,000 MXN</div>
-                    <div class="property-features">
-                        <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
-                            <span class="feature-value">320 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bed"></i> Recámaras
-                            <span class="feature-value">3</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-umbrella-beach"></i> Terraza
-                            <span class="feature-value">120 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-building"></i> Nivel
-                            <span class="feature-value">32</span>
-                        </div>
-                    </div>
-                    <p class="property-description">Exclusivo penthouse con vistas panorámicas a la ciudad, acabados de primer nivel, terraza con jacuzzi y áreas de entretenimiento. Incluye acceso a amenities premium.</p>
-                    <div class="property-actions">
-                        <button class="btn btn-map">
-                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 4 -->
-            <div class="property-card" 
-                 data-location="29.1153, -110.9321"
-                 data-map-position="top:25%; left:60%"
-                 data-house-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80">
-                <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" alt="Casa Contemporánea" class="property-image">
-                    <div class="property-badge">Destacado</div>
-                </div>
-                <div class="property-details">
-                    <h3 class="property-title">Casa Contemporánea</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Colonia San Benito, Hermosillo
-                    </div>
-                    <div class="property-price">$9,950,000 MXN</div>
-                    <div class="property-features">
-                        <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
-                            <span class="feature-value">380 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-bed"></i> Recámaras
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
                             <span class="feature-value">4</span>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-sun"></i> Orientación
-                            <span class="feature-value">Sur</span>
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">4.5</span>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-calendar"></i> Año construcción
-                            <span class="feature-value">2022</span>
-                        </div>
-                    </div>
-                    <p class="property-description">Diseño vanguardista con integración de espacios, luz natural en todas las áreas, tecnología domótica, cocina gourmet y jardín minimalista con espejo de agua.</p>
-                    <div class="property-actions">
-                        <button class="btn btn-map">
-                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 5 -->
-            <div class="property-card" 
-                 data-location="29.0678, -110.9954"
-                 data-map-position="top:50%; left:30%"
-                 data-house-img="https://images.unsplash.com/photo-1628133287836-40bd5453bed1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
-                <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1628133287836-40bd5453bed1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Rústica" class="property-image">
-                    <div class="property-badge">Oportunidad</div>
-                </div>
-                <div class="property-details">
-                    <h3 class="property-title">Hacienda del Valle</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Valle del Yaqui, Hermosillo
-                    </div>
-                    <div class="property-price">$6,500,000 MXN</div>
-                    <div class="property-features">
-                        <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
-                            <span class="feature-value">320 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-tree"></i> Terreno
-                            <span class="feature-value">2,500 m²</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-water"></i> Cuerpo de agua
-                            <span class="feature-value">Privado</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-fire"></i> Chimeneas
-                            <span class="feature-value">3</span>
-                        </div>
-                    </div>
-                    <p class="property-description">Encantadora propiedad estilo hacienda con detalles rústicos, amplios espacios sociales, caballerizas, huerto orgánico y acceso privado al lago. Perfecta para retiros familiares.</p>
-                    <div class="property-actions">
-                        <button class="btn btn-map">
-                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 6 -->
-            <div class="property-card" 
-                 data-location="29.0951, -110.9187"
-                 data-map-position="top:40%; left:65%"
-                 data-house-img="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80">
-                <div class="property-image-container">
-                    <img src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Casa Minimalista" class="property-image">
-                    <div class="property-badge">En Oferta</div>
-                </div>
-                <div class="property-details">
-                    <h3 class="property-title">Residencia Minimal</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i> Colonia La Mision, Hermosillo
-                    </div>
-                    <div class="property-price">$7,200,000 MXN</div>
-                    <div class="property-features">
-                        <div class="feature">
-                            <i class="fas fa-ruler-combined"></i> Área construida
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
                             <span class="feature-value">350 m²</span>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-snowflake"></i> Climatización
-                            <span class="feature-value">Central</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-shield-alt"></i> Seguridad
-                            <span class="feature-value">24/7</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-swimming-pool"></i> Alberca
-                            <span class="feature-value">Infinito</span>
+                            <i class="fas fa-car"></i>
+                            <span>Estacionamiento</span>
+                            <span class="feature-value">3</span>
                         </div>
                     </div>
-                    <p class="property-description">Elegante diseño minimalista con líneas puras, espacios diáfanos, materiales nobles y máxima eficiencia energética. Patio central zen y techos altos que crean sensación de amplitud.</p>
+                    
+                    <p class="property-description">
+                        Elegante residencia en el corazón del Centro Histórico de Hermosillo, con acabados de lujo, 
+                        techos altos y detalles arquitectónicos que combinan lo clásico con lo contemporáneo.
+                    </p>
+                    
+                    <div class="property-actions">
+                        <button class="btn btn-map">
+                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Propiedad 2 - Colonia Pitic -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1756&q=80" 
+                 data-coords="29.102779,-110.977916">
+                <div class="property-image-container">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1756&q=80" 
+                         alt="Casa Contemporánea en Pitic" class="property-image">
+                    <div class="property-badge">PRECIO REDUCIDO</div>
+                </div>
+                <div class="property-details">
+                    <h3 class="property-title">Residencia Pitic</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Colonia Pitic, Hermosillo</span>
+                    </div>
+                    <div class="property-price">$6,200,000 MXN</div>
+                    
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
+                            <span class="feature-value">5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
+                            <span class="feature-value">420 m²</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-swimming-pool"></i>
+                            <span>Alberca</span>
+                            <span class="feature-value">Sí</span>
+                        </div>
+                    </div>
+                    
+                    <p class="property-description">
+                        Moderna residencia en la exclusiva colonia Pitic, con amplios espacios abiertos, 
+                        diseño contemporáneo, jardín desértico y alberca con sistema de salinización.
+                    </p>
+                    
+                    <div class="property-actions">
+                        <button class="btn btn-map">
+                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Propiedad 3 - Colonia Villa de Seris -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                 data-coords="29.148621,-110.978272">
+                <div class="property-image-container">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                         alt="Casa Tradicional en Villa de Seris" class="property-image">
+                    <div class="property-badge">NUEVA</div>
+                </div>
+                <div class="property-details">
+                    <h3 class="property-title">Hacienda Villa de Seris</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Villa de Seris, Hermosillo</span>
+                    </div>
+                    <div class="property-price">$7,500,000 MXN</div>
+                    
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
+                            <span class="feature-value">6</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">6.5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
+                            <span class="feature-value">550 m²</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tree"></i>
+                            <span>Jardín</span>
+                            <span class="feature-value">1,200 m²</span>
+                        </div>
+                    </div>
+                    
+                    <p class="property-description">
+                        Impresionante hacienda estilo sonorense en el histórico barrio de Villa de Seris, 
+                        con patio central, fuentes, acabados de cantera y amplios espacios para la familia.
+                    </p>
+                    
+                    <div class="property-actions">
+                        <button class="btn btn-map">
+                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Propiedad 4 - Colonia La Carola -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                 data-coords="29.089057,-110.965039">
+                <div class="property-image-container">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                         alt="Casa Moderna en La Carola" class="property-image">
+                    <div class="property-badge">DESTACADA</div>
+                </div>
+                <div class="property-details">
+                    <h3 class="property-title">Residencia La Carola</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>La Carola, Hermosillo</span>
+                    </div>
+                    <div class="property-price">$8,900,000 MXN</div>
+                    
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
+                            <span class="feature-value">5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">5.5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
+                            <span class="feature-value">480 m²</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-hot-tub"></i>
+                            <span>Jacuzzi</span>
+                            <span class="feature-value">Sí</span>
+                        </div>
+                    </div>
+                    
+                    <p class="property-description">
+                        Exclusiva propiedad en La Carola con diseño vanguardista, techos de doble altura, 
+                        amplios ventanales que aprovechan la luz natural y terraza con jacuzzi y vista panorámica.
+                    </p>
+                    
+                    <div class="property-actions">
+                        <button class="btn btn-map">
+                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Propiedad 5 - Colonia San Benito -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" 
+                 data-coords="29.115837,-110.953214">
+                <div class="property-image-container">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1653&q=80" 
+                         alt="Casa Campestre en San Benito" class="property-image">
+                </div>
+                <div class="property-details">
+                    <h3 class="property-title">Hacienda San Benito</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>San Benito, Hermosillo</span>
+                    </div>
+                    <div class="property-price">$9,500,000 MXN</div>
+                    
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
+                            <span class="feature-value">7</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">6</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
+                            <span class="feature-value">650 m²</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tree"></i>
+                            <span>Terreno</span>
+                            <span class="feature-value">2,500 m²</span>
+                        </div>
+                    </div>
+                    
+                    <p class="property-description">
+                        Majestuosa hacienda campestre en San Benito, con amplios jardines, huerto orgánico, 
+                        caballerizas y alberca de estilo natural. Que te va a enamorar.
+                    </p>
+                    
+                    <div class="property-actions">
+                        <button class="btn btn-map">
+                            <i class="fas fa-map-marked-alt"></i> Ver en Mapa
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Propiedad 6 - Colonia La Manga -->
+            <div class="property-card" data-house-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                 data-coords="29.132880,-110.962341">
+                <div class="property-image-container">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" 
+                         alt="Penthouse en La Manga" class="property-image">
+                    <div class="property-badge">NUEVO</div>
+                </div>
+                <div class="property-details">
+                    <h3 class="property-title">Penthouse La Manga</h3>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>La Manga, Hermosillo</span>
+                    </div>
+                    <div class="property-price">$6,800,000 MXN</div>
+                    
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>Habitaciones</span>
+                            <span class="feature-value">4</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>Baños</span>
+                            <span class="feature-value">4.5</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>Superficie</span>
+                            <span class="feature-value">320 m²</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-umbrella-beach"></i>
+                            <span>Terraza</span>
+                            <span class="feature-value">120 m²</span>
+                        </div>
+                    </div>
+                    
+                    <p class="property-description">
+                        Exclusivo penthouse en el prestigioso desarrollo de La Manga, con vistas panorámicas a la ciudad con
+                        acabados de lujo.
+                    </p>
+                    
                     <div class="property-actions">
                         <button class="btn btn-map">
                             <i class="fas fa-map-marked-alt"></i> Ver en Mapa
@@ -1236,70 +1107,60 @@
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <!-- Space Animation -->
-    <div class="space-animation">
-        <div class="space-text">VIAJANDO A LA UBICACIÓN</div>
-        <div class="space-container">
-            <div class="earth"></div>
-            <div class="spaceship"></div>
-            <div class="map-preview"></div>
-        </div>
-        <div class="loading-bar">
-            <div class="loading-progress"></div>
-        </div>
-    </div>
+    <!-- Animación espacial -->
+    <div id="spaceAnimation" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:2000;"></div>
 
-    <!-- House Preview -->
+    <!-- Vista previa de la casa -->
     <div class="house-preview">
         <div class="close-preview">
-            <div class="close-icon"></div>
+            <i class="fas fa-times"></i>
         </div>
         <div class="house-preview-content">
-            <img src="" alt="Preview de la propiedad" class="house-preview-image">
-            <div class="door-area"></div>
+            <img src="" alt="Vista previa de la propiedad" class="house-preview-image">
+            <div class="door-area">
+                <i class="fas fa-door-open" style="color: white; font-size: 2rem;"></i>
+            </div>
         </div>
     </div>
 
-    <!-- Virtual Tour -->
+    <!-- Tour virtual -->
     <div class="virtual-tour">
         <div class="exit-tour">
-            <div class="close-icon"></div>
+            <i class="fas fa-times"></i>
         </div>
-        <div class="tour-title">Recorrido Virtual</div>
-        <div class="tour-info">Desplaza o usa flechas para navegar</div>
+        <div class="tour-title">Tour Virtual - Residencia</div>
         <div class="tour-container">
-            <img src="" alt="Tour virtual" class="tour-image">
+            <img src="" alt="Tour Virtual" class="tour-image">
         </div>
         <div class="tour-navigation">
-            <button class="tour-btn prev-btn"><i class="fas fa-arrow-left"></i></button>
-            <button class="tour-btn next-btn"><i class="fas fa-arrow-right"></i></button>
+            <button class="tour-btn prev-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <button class="tour-btn next-btn">
+                <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">Hermosillo, Sonora</div>
-            <p class="footer-text">Especialistas en propiedades exclusivas con más de 15 años de experiencia en el mercado inmobiliario de alto nivel. Ofrecemos servicio personalizado, transparencia y excelencia en cada transacción.</p>
-            <div class="contact-buttons-footer">
-                <a href="mailto:info@luxuryproperties.com" class="btn btn-email">
-                    <i class="fas fa-envelope"></i> Contacto
-                </a>
-            </div>
-            <div class="copyright">
-                &copy; 2025 RevTech DEV. Todos los derechos reservados.
-            </div>
+            <div class="footer-logo">Hermosillo, Sonora.</div>
+            <p class="footer-text">Especialistas en propiedades exclusivas en Hermosillo y todo Sonora. Más de 15 años creando sueños y construyendo patrimonios.</p>
+            
+            <a href="mailto:alfonsosilvas2801@gmail.com" class="contact-button-footer">
+               <i class="fas fa-envelope"></i> Agenda Tu Cita
+            </a>
+            
+            <p class="copyright">© 2025 Rev Tech Dev. Todos los derechos reservados.</p>
         </div>
     </footer>
 
     <script>
         // DOM Elements
         const propertyCards = document.querySelectorAll('.property-card');
-        const spaceAnimation = document.querySelector('.space-animation');
-        const earth = document.querySelector('.earth');
-        const mapPreview = document.querySelector('.map-preview');
+        const spaceAnimation = document.getElementById('spaceAnimation');
         const housePreview = document.querySelector('.house-preview');
         const housePreviewImage = document.querySelector('.house-preview-image');
         const closePreview = document.querySelector('.close-preview');
@@ -1321,48 +1182,176 @@
         ];
 
         let currentTourImageIndex = 0;
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
 
-        // Property click event (show space animation)
+        // Función para crear estrellas
+        function crearEstrellas(cantidad) {
+            const vertices = [];
+            for (let i = 0; i < cantidad; i++) {
+                const x = THREE.MathUtils.randFloatSpread(2000);
+                const y = THREE.MathUtils.randFloatSpread(2000);
+                const z = THREE.MathUtils.randFloatSpread(2000);
+                vertices.push(x, y, z);
+            }
+            
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({
+                color: 0xffffff,
+                size: 1.5,
+                sizeAttenuation: false
+            });
+            
+            return new THREE.Points(geometry, material);
+        }
+
+        // Función para crear la Tierra
+        function crearTierra() {
+            const texture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+            const material = new THREE.MeshPhongMaterial({
+                map: texture,
+                specular: new THREE.Color(0x333333),
+                shininess: 5
+            });
+            
+            const earth = new THREE.Mesh(
+                new THREE.SphereGeometry(1.5, 32, 32),
+                material
+            );
+            
+            // Atmósfera
+            const atmosfera = new THREE.Mesh(
+                new THREE.SphereGeometry(1.52, 32, 32),
+                new THREE.MeshPhongMaterial({
+                    color: 0x3399ff,
+                    transparent: true,
+                    opacity: 0.2
+                })
+            );
+            
+            const grupo = new THREE.Group();
+            grupo.add(earth);
+            grupo.add(atmosfera);
+            
+            return grupo;
+        }
+
+        // Función para la fase espacial
+        async function faseEspacial(container, coords) {
+            return new Promise((resolve) => {
+                // Configuración inicial de Three.js
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+                const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.innerHTML = '';
+                container.appendChild(renderer.domElement);
+
+                // Crear estrellas
+                const stars = crearEstrellas(5000);
+                scene.add(stars);
+                
+                // Crear Tierra
+                const tierra = crearTierra();
+                scene.add(tierra);
+                
+                // Luz ambiental
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(ambientLight);
+                
+                // Luz direccional (sol)
+                const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+                sunLight.position.set(5, 3, 5);
+                scene.add(sunLight);
+                
+                // Posición inicial cámara
+                camera.position.z = 100;
+                
+                // Animación
+                let velocidad = 0.05;
+                const animar = () => {
+                    requestAnimationFrame(animar);
+                    
+                    // Rotar la Tierra
+                    tierra.rotation.y += 0.002;
+                    
+                    // Mover cámara hacia la Tierra
+                    if(camera.position.z > 2) {
+                        camera.position.z -= velocidad;
+                        velocidad *= 1.03; // Aceleración progresiva
+                    } 
+                    // Al acercarse, rotar hacia coordenadas
+                    else {
+                        // Cálculos para posicionar sobre coordenadas
+                        const phi = (90 - coords.lat) * Math.PI / 180;
+                        const theta = (coords.lng + 180) * Math.PI / 180;
+                        
+                        const x = -1.5 * Math.sin(phi) * Math.cos(theta);
+                        const y = 1.5 * Math.cos(phi);
+                        const z = 1.5 * Math.sin(phi) * Math.sin(theta);
+                        
+                        camera.lookAt(new THREE.Vector3(x, y, z));
+                        
+                        // Movimiento suave hacia la ubicación
+                        const targetPosition = new THREE.Vector3(x*3, y*3, z*3);
+                        camera.position.lerp(targetPosition, 0.1);
+                    }
+                    
+                    renderer.render(scene, camera);
+                };
+                
+                animar();
+                
+                // Terminar fase después de 4s
+                setTimeout(resolve, 4000);
+            });
+        }
+
+        // Función para mostrar vista de mapa
+        function mostrarVistaMapa(container, coords) {
+            // API Key de Google Maps (reemplazar con tu propia key)
+            const apiKey = 'TU_API_KEY_DE_GOOGLE_MAPS';
+            const url = `https://maps.googleapis.com/maps/api/staticmap?center=${coords.lat},${coords.lng}&zoom=17&size=${window.innerWidth}x${window.innerHeight}&maptype=satellite&key=${apiKey}`;
+            
+            container.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:cover;">`;
+        }
+
+        // Función para iniciar la animación
+        async function iniciarAnimacion(coords, propertyCard) {
+            // Mostrar contenedor de animación
+            spaceAnimation.style.display = 'block';
+            
+            // 1. Fase espacial
+            await faseEspacial(spaceAnimation, coords);
+            
+            // 2. Mostrar vista de mapa
+            mostrarVistaMapa(spaceAnimation, coords);
+            
+            // 3. Después de 3 segundos, mostrar la vista previa de la casa
+            setTimeout(() => {
+                spaceAnimation.style.display = 'none';
+                
+                const houseImage = propertyCard.getAttribute('data-house-img');
+                housePreviewImage.src = houseImage;
+                housePreview.classList.add('active');
+                
+                // Mostrar door area después de cargar la imagen
+                setTimeout(() => {
+                    doorArea.style.opacity = '1';
+                }, 500);
+            }, 3000);
+        }
+
+        // Evento para los botones de mapa
         mapButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const propertyCard = this.closest('.property-card');
-                const houseImage = propertyCard.getAttribute('data-house-img');
-                const mapPosition = propertyCard.getAttribute('data-map-position');
+                const coordsString = propertyCard.getAttribute('data-coords');
+                const [lat, lng] = coordsString.split(',').map(Number);
+                const coords = { lat, lng };
                 
-                // Show space animation
-                spaceAnimation.classList.add('active');
-                
-                // After animation completes, show map preview
-                setTimeout(() => {
-                    // Create marker
-                    const marker = document.createElement('div');
-                    marker.classList.add('map-marker');
-                    marker.style = mapPosition;
-                    mapPreview.appendChild(marker);
-                    
-                    // Show map preview
-                    mapPreview.style.opacity = '1';
-                    mapPreview.style.transform = 'translate(-50%, -50%) scale(1)';
-                    
-                    // After map preview, show house preview
-                    setTimeout(() => {
-                        spaceAnimation.classList.remove('active');
-                        housePreviewImage.src = houseImage;
-                        housePreview.classList.add('active');
-                        
-                        // Reset map preview
-                        mapPreview.style.opacity = '0';
-                        mapPreview.style.transform = 'translate(-50%, -50%) scale(0.1)';
-                        mapPreview.innerHTML = '';
-                        
-                        // Show door area after image loads
-                        setTimeout(() => {
-                            doorArea.style.opacity = '1';
-                        }, 500);
-                    }, 3000);
-                }, 3500);
+                iniciarAnimacion(coords, propertyCard);
             });
         });
 
@@ -1376,12 +1365,14 @@
         doorArea.addEventListener('click', function() {
             housePreview.classList.remove('active');
             tourImage.src = tourImages[0];
+            currentTourImageIndex = 0;
             virtualTour.classList.add('active');
         });
 
         // Exit virtual tour
         exitTour.addEventListener('click', function() {
             virtualTour.classList.remove('active');
+            doorArea.style.opacity = '0';
         });
 
         // Tour navigation
@@ -1395,58 +1386,6 @@
             currentTourImageIndex = (currentTourImageIndex + 1) % tourImages.length;
             tourImage.src = tourImages[currentTourImageIndex];
             tourImage.animate([{opacity: 0}, {opacity: 1}], {duration: 500});
-        });
-
-        // Tour image interaction
-        tourImage.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            startX = e.pageX - this.offsetLeft;
-            startY = e.pageY - this.offsetTop;
-            scrollLeft = this.scrollLeft;
-            scrollTop = this.scrollTop;
-        });
-
-        tourImage.addEventListener('mouseleave', function() {
-            isDragging = false;
-        });
-
-        tourImage.addEventListener('mouseup', function() {
-            isDragging = false;
-        });
-
-        tourImage.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - this.offsetLeft;
-            const y = e.pageY - this.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            this.scrollLeft = scrollLeft - walkX;
-            this.scrollTop = scrollTop - walkY;
-        });
-
-        // Touch events for mobile
-        tourImage.addEventListener('touchstart', function(e) {
-            isDragging = true;
-            startX = e.touches[0].pageX - this.offsetLeft;
-            startY = e.touches[0].pageY - this.offsetTop;
-            scrollLeft = this.scrollLeft;
-            scrollTop = this.scrollTop;
-        });
-
-        tourImage.addEventListener('touchend', function() {
-            isDragging = false;
-        });
-
-        tourImage.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.touches[0].pageX - this.offsetLeft;
-            const y = e.touches[0].pageY - this.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            this.scrollLeft = scrollLeft - walkX;
-            this.scrollTop = scrollTop - walkY;
         });
 
         // Card hover effect
